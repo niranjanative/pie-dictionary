@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintainer-app
+  labels:
+    app: maintainer-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintainer-app
+  template:
+    metadata:
+      labels:
+        app: maintainer-app
+    spec:
+      containers:
+        - name: maintainer-app
+          image: niranjangavade1/maintainer
+          ports:
+            - containerPort: 4321
+          env: # Environment variables passed to the container
+            - name: REDIS_IP
+              value: redis-master
+            - name: REDIS_PORT
+              value: "6379"
